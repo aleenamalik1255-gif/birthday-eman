@@ -15,16 +15,21 @@ height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
+background: linear-gradient(270deg,#ff9a9e,#fad0c4,#fad0c4,#ffdde1);
+background-size:800% 800%;
+animation: gradient 12s ease infinite;
 font-family:'Poppins',sans-serif;
 overflow:hidden;
-transition: background-image 1s ease-in-out;
-background-size: cover;
-background-position: center;
-background-repeat: no-repeat;
+}
+
+@keyframes gradient{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 .card{
-background: rgba(255,255,255,0.9);
+background:white;
 padding:40px;
 border-radius:25px;
 box-shadow:0 15px 40px rgba(0,0,0,0.2);
@@ -64,12 +69,26 @@ background:#ff2e5f;
 #message{
 margin-top:25px;
 font-size:16px;
+display:none;
 line-height:1.6;
 color:#444;
 min-height:180px;
 }
 
-/* Continue button styling */
+/* Floating emojis */
+.emoji{
+position:absolute;
+font-size:22px;
+animation: floatEmoji 6s linear infinite;
+opacity:0.8;
+}
+
+@keyframes floatEmoji{
+0%{transform:translateY(100vh); opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-10vh); opacity:0;}
+}
+
 #continueBtn{
 display:none;
 margin-top:15px;
@@ -88,24 +107,10 @@ transform:scale(1.1);
 background:#ff4d6d;
 }
 
-/* Floating emojis */
-.emoji{
-position:absolute;
-font-size:22px;
-animation: floatEmoji 6s linear infinite;
-opacity:0.8;
-}
-
-@keyframes floatEmoji{
-0%{transform:translateY(100vh); opacity:0;}
-50%{opacity:1;}
-100%{transform:translateY(-10vh); opacity:0;}
-}
-
 </style>
 </head>
 
-<body style="background-image: url('https://images.unsplash.com/photo-1526662091522-1935c3b1f69f?auto=format&fit=crop&w=1350&q=80');">
+<body>
 
 <!-- Floating emojis -->
 <div class="emoji" style="left:10%">🎈</div>
@@ -119,7 +124,7 @@ opacity:0.8;
 
 <h1>🎂 Happy Birthday Eman 🎉</h1>
 
-<p id="specialText">I made something special for you.</p>
+<p>I made something special for you.</p>
 
 <button id="surpriseBtn" onclick="startSurprise()">Click Your Surprise 🎁</button>
 
@@ -142,23 +147,10 @@ const lines = [
 "I hope this year brings you happiness, success, and everything you truly deserve. 🎉"
 ];
 
-const bgImages = [
-"https://images.unsplash.com/photo-1526662091522-1935c3b1f69f?auto=format&fit=crop&w=1350&q=80",
-"https://images.unsplash.com/photo-1532074205216-d0e1f4dc5f18?auto=format&fit=crop&w=1350&q=80",
-"https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=1350&q=80",
-"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1350&q=80",
-"https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=1350&q=80",
-"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1350&q=80",
-"https://images.unsplash.com/photo-1511988617509-a57c8a288659?auto=format&fit=crop&w=1350&q=80"
-];
-
 let currentIndex = 0;
 
 function startSurprise(){
-  // Hide button and special text
   document.getElementById("surpriseBtn").style.display = "none";
-  document.getElementById("specialText").style.display = "none";
-
   document.getElementById("message").style.display = "block";
   document.getElementById("continueBtn").style.display = "inline-block";
 
@@ -176,10 +168,6 @@ function showNextLine(){
   const msg = document.getElementById("message");
   if(currentIndex < lines.length){
     msg.innerHTML = lines[currentIndex];
-
-    // Change background image
-    document.body.style.backgroundImage = `url('${bgImages[currentIndex]}')`;
-
     currentIndex++;
   } else {
     document.getElementById("continueBtn").style.display = "none";
@@ -190,3 +178,4 @@ function showNextLine(){
 
 </body>
 </html>
+
