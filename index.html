@@ -5,6 +5,8 @@
 <meta charset="UTF-8">
 <title>Birthday Surprise 🎂</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
 
 body{
@@ -15,9 +17,9 @@ justify-content:center;
 align-items:center;
 background: linear-gradient(270deg,#ff9a9e,#fad0c4,#fad0c4,#ffdde1);
 background-size:800% 800%;
-animation: gradient 10s ease infinite;
-font-family: Arial;
-text-align:center;
+animation: gradient 12s ease infinite;
+font-family:'Poppins',sans-serif;
+overflow:hidden;
 }
 
 @keyframes gradient{
@@ -29,45 +31,77 @@ text-align:center;
 .card{
 background:white;
 padding:40px;
-border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
-width:350px;
+border-radius:25px;
+box-shadow:0 15px 40px rgba(0,0,0,0.2);
+width:380px;
+text-align:center;
+animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
 }
 
 h1{
+font-family:'Pacifico',cursive;
 color:#ff4d6d;
+font-size:32px;
 }
 
 button{
-padding:12px 25px;
-font-size:18px;
+padding:12px 28px;
+font-size:17px;
 border:none;
-border-radius:10px;
+border-radius:12px;
 background:#ff4d6d;
 color:white;
 cursor:pointer;
 transition:0.3s;
+margin-top:10px;
 }
 
 button:hover{
 transform:scale(1.1);
+background:#ff2e5f;
 }
 
 #message{
-margin-top:20px;
+margin-top:25px;
 font-size:16px;
 display:none;
+line-height:1.6;
+color:#444;
+min-height:180px;
 }
 
-iframe{
-margin-top:20px;
-border-radius:10px;
+/* Floating emojis */
+
+.emoji{
+position:absolute;
+font-size:22px;
+animation: floatEmoji 6s linear infinite;
+opacity:0.8;
+}
+
+@keyframes floatEmoji{
+0%{transform:translateY(100vh); opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-10vh); opacity:0;}
 }
 
 </style>
 </head>
 
 <body>
+
+<!-- Floating emojis -->
+<div class="emoji" style="left:10%">🎈</div>
+<div class="emoji" style="left:25%">🎉</div>
+<div class="emoji" style="left:40%">💖</div>
+<div class="emoji" style="left:60%">🎂</div>
+<div class="emoji" style="left:75%">✨</div>
+<div class="emoji" style="left:90%">🎁</div>
 
 <div class="card">
 
@@ -77,31 +111,7 @@ border-radius:10px;
 
 <button onclick="surprise()">Click Your Surprise 🎁</button>
 
-<div id="message">
-
-<p>
-Even though we are in different cities now, you will always be one of the most special people in my life.  
-It’s honestly crazy to think that we have been best friends for almost 8 years, since 8th class.  
-
-From being just classmates to becoming inseparable best friends, we have shared so many memories, laughs, secrets, and moments that I will always treasure.  
-
-Thank you for always being there for me, for understanding me, and for making my life brighter just by being in it.  
-
-Distance may keep us in different cities, but it can never change our friendship.  
-
-Happy Birthday Eman ❤️  
-I hope this year brings you happiness, success, and everything you truly deserve.
-</p>
-
-<!-- Birthday Video -->
-<iframe width="300" height="170"
-src="https://www.youtube.com/embed/d-diB65scQU"
-allowfullscreen>
-</iframe>
-
-
-
-</div>
+<div id="message"></div>
 
 </div>
 
@@ -109,15 +119,44 @@ allowfullscreen>
 
 <script>
 
+const lines = [
+"Even though we are in different cities now, you will always be one of the most special people in my life. 💖",
+"It’s honestly crazy to think that we have been best friends for almost 8 years, since 8th class. 🎓",
+"From being just classmates to becoming inseparable best friends, we have shared so many memories, laughs, secrets, and moments. ✨",
+"Thank you for always being there for me and understanding me like no one else does. 🤍",
+"Distance may keep us in different cities, but it can never change our friendship. 🌍",
+"Happy Birthday Eman 🎂❤️",
+"I hope this year brings you happiness, success, and everything you truly deserve. 🎉"
+];
+
+let i = 0;
+
 function surprise(){
 
 document.getElementById("message").style.display="block";
 
 confetti({
 particleCount:200,
-spread:100,
+spread:120,
 origin:{y:0.6}
 });
+
+showLine();
+}
+
+function showLine(){
+
+if(i < lines.length){
+
+const msg = document.getElementById("message");
+
+msg.innerHTML = lines[i];
+
+i++;
+
+setTimeout(showLine,3500);
+
+}
 
 }
 
