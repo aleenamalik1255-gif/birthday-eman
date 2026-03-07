@@ -76,7 +76,6 @@ min-height:180px;
 }
 
 /* Floating emojis */
-
 .emoji{
 position:absolute;
 font-size:22px;
@@ -88,6 +87,24 @@ opacity:0.8;
 0%{transform:translateY(100vh); opacity:0;}
 50%{opacity:1;}
 100%{transform:translateY(-10vh); opacity:0;}
+}
+
+#continueBtn{
+display:none;
+margin-top:15px;
+padding:10px 25px;
+font-size:16px;
+border:none;
+border-radius:10px;
+background:#ff9a9e;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+#continueBtn:hover{
+transform:scale(1.1);
+background:#ff4d6d;
 }
 
 </style>
@@ -109,9 +126,10 @@ opacity:0.8;
 
 <p>I made something special for you.</p>
 
-<button onclick="surprise()">Click Your Surprise 🎁</button>
+<button id="surpriseBtn" onclick="startSurprise()">Click Your Surprise 🎁</button>
 
 <div id="message"></div>
+<button id="continueBtn" onclick="showNextLine()">Continue ➡️</button>
 
 </div>
 
@@ -129,35 +147,31 @@ const lines = [
 "I hope this year brings you happiness, success, and everything you truly deserve. 🎉"
 ];
 
-let i = 0;
+let currentIndex = 0;
 
-function surprise(){
+function startSurprise(){
+  document.getElementById("surpriseBtn").style.display = "none";
+  document.getElementById("message").style.display = "block";
+  document.getElementById("continueBtn").style.display = "inline-block";
 
-document.getElementById("message").style.display="block";
+  // Confetti
+  confetti({
+    particleCount: 200,
+    spread: 120,
+    origin: {y:0.6}
+  });
 
-confetti({
-particleCount:200,
-spread:120,
-origin:{y:0.6}
-});
-
-showLine();
+  showNextLine();
 }
 
-function showLine(){
-
-if(i < lines.length){
-
-const msg = document.getElementById("message");
-
-msg.innerHTML = lines[i];
-
-i++;
-
-setTimeout(showLine,3500);
-
-}
-
+function showNextLine(){
+  const msg = document.getElementById("message");
+  if(currentIndex < lines.length){
+    msg.innerHTML = lines[currentIndex];
+    currentIndex++;
+  } else {
+    document.getElementById("continueBtn").style.display = "none";
+  }
 }
 
 </script>
