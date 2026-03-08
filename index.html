@@ -20,6 +20,7 @@ background-size:800% 800%;
 animation: gradient 12s ease infinite;
 font-family:'Poppins',sans-serif;
 overflow:hidden;
+transition: background-image 1s ease;
 }
 
 @keyframes gradient{
@@ -124,7 +125,7 @@ background:#ff4d6d;
 
 <h1>🎂 Happy Birthday Eman 🎉</h1>
 
-<p>I made something special for you.</p>
+<p id="specialLine">I made something special for you.</p>
 
 <button id="surpriseBtn" onclick="startSurprise()">Click Your Surprise 🎁</button>
 
@@ -136,21 +137,39 @@ background:#ff4d6d;
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
-
+// Friendship lines
 const lines = [
-"Even though we are in different cities now, you will always be one of the most special people in my life. 💖",
-"It’s honestly crazy to think that we have been best friends for almost 8 years, since 8th class. 🎓",
-"From being just classmates to becoming inseparable best friends, we have shared so many memories, laughs, secrets, and moments. ✨",
-"Thank you for always being there for me and understanding me like no one else does. 🤍",
-"Distance may keep us in different cities, but it can never change our friendship. 🌍",
-"Happy Birthday Eman 🎂❤️",
-"I hope this year brings you happiness, success, and everything you truly deserve. 🎉"
+  "Even though we are in different cities now, you will always be one of the most special people in my life. 💖",
+  "It’s honestly crazy to think that we have been best friends for almost 8 years, since 8th class. 🎓",
+  "From being just classmates to becoming inseparable best friends, we have shared so many memories, laughs, secrets, and moments. ✨",
+  "Thank you for always being there for me and understanding me like no one else does. 🤍",
+  "Distance may keep us in different cities, but it can never change our friendship. 🌍",
+  "You’ve always inspired me to be a better person, and I hope I do the same for you. 🌟",
+  "Remember all those silly inside jokes we have? They’ll always make me smile no matter what. 😄",
+  "Happy Birthday Eman 🎂❤️",
+  "I hope this year brings you happiness, success, and everything you truly deserve. 🎉",
+  "No matter where life takes us, our bond will remain unbreakable. 💕"
+];
+
+// Background images
+const bgImages = [
+  'url(https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&w=1950&q=80)',
+  'url(https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1950&q=80)',
+  'url(https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1950&q=80)',
+  'url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1950&q=80)',
+  'url(https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1950&q=80)',
+  'url(https://images.unsplash.com/photo-1498575207491-109a7ed4b9b7?auto=format&fit=crop&w=1950&q=80)',
+  'url(https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=1950&q=80)',
+  'url(https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=1950&q=80)',
+  'url(https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1950&q=80)',
+  'url(https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?auto=format&fit=crop&w=1950&q=80)'
 ];
 
 let currentIndex = 0;
 
 function startSurprise(){
   document.getElementById("surpriseBtn").style.display = "none";
+  document.getElementById("specialLine").style.display = "none"; // Hide special line
   document.getElementById("message").style.display = "block";
   document.getElementById("continueBtn").style.display = "inline-block";
 
@@ -168,14 +187,14 @@ function showNextLine(){
   const msg = document.getElementById("message");
   if(currentIndex < lines.length){
     msg.innerHTML = lines[currentIndex];
+    // Change background
+    document.body.style.backgroundImage = bgImages[currentIndex % bgImages.length];
     currentIndex++;
   } else {
     document.getElementById("continueBtn").style.display = "none";
   }
 }
-
 </script>
 
 </body>
 </html>
-
